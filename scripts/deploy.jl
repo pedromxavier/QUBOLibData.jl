@@ -7,21 +7,29 @@ function main(; verbose::Bool=false)
     # copy 'LICENSE' and '.gitignore' into 'collections'
     cp(
         joinpath(ROOT_PATH, "LICENSE"),
-        joinpath(DATA_PATH, "LICENSE"),
+        joinpath(DATA_PATH, "LICENSE");
+        force = true
     )
     cp(
         joinpath(ROOT_PATH, ".gitignore"),
-        joinpath(DATA_PATH, ".gitignore"),
+        joinpath(DATA_PATH, ".gitignore");
+        force = true
     )
 
     # build tarball
     filepath = Tar.create(DATA_PATH) |> abspath
+
+    # remove files
+    rm(joinpath(DATA_PATH, "LICENSE"); force=true)
+    rm(joinpath(DATA_PATH, ".gitignore"); force=true)
 
     # compress
     run(`gzip -9 $filepath`)
     
     # copy from temporary file and delete it
     distpath = joinpath(DIST_PATH, "dist.tar.gz")
+
+    mkpath(distpath)
 
     cp("$filepath.gz", distpath)
 
