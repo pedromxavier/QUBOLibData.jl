@@ -22,20 +22,45 @@ function main(; verbose::Bool = false)
         @info "Compressed tarball @ $(gzippath)"
     end
 
-    branch = string(uuid4())
-
     cd(ROOT_PATH) do
+        # Generate name for temporary branch
+        branch = string(uuid4())
+
+        # Create 'dist' branch if not exists, reset it otherwise
         run(`git checkout -B dist`)
 
+        # Move to temporary branch
         run(`git checkout --orphan $branch`)
+
+        # Delete everything from git history
         run(`git rm -rf .`)
+
+        # Assert that 'dist' folder is still there
+        @assert isdir(datapath)
+
+        # Bring .gitignore and LICENSE back
         run(`git checkout HEAD -- .gitignore LICENSE`)
+
+        # Add 'dist' folder and the aforementioned files back
         run(`git add .`)
+
+        # Commit
+        run(`git commit -m "Distribute data"`)
+
+        # Upload branch (is this necessary?)
         run(`git push --set-upstream origin $branch`)
 
-        @info "Deployed './dist' folder @ '$branch'"
-
+        # Overwrite 'dist' branch with contents from temporary branch
         run(`git push origin +$branch:dist`)
+
+        # Move to the 'dist' branch
+        run(`git checkout dist`)
+
+        # Delete temporary branch locally ...
+        run(`git branch -d $branch`)
+
+        # ... and remotely
+        run(`git push origin --delete $branch`)
     end
 
     return nothing
