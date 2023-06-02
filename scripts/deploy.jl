@@ -25,7 +25,7 @@ function main(; verbose::Bool = false)
     branch = uuid4()
 
     cd(ROOT_PATH) do
-        run(`git checkout -B data`)
+        run(`git checkout -B dist`)
 
         run(`git checkout --orphan $branch`)
         run(`git rm -rf .`)
@@ -34,7 +34,7 @@ function main(; verbose::Bool = false)
 
         @info "Deployed './dist' folder @ '$branch'"
 
-        run(`git push origin +$branch:data`)
+        run(`git push origin +$branch:dist`)
     end
 
     return nothing
