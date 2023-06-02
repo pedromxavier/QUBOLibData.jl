@@ -1,0 +1,9 @@
+{
+    "code": "arXiv_1903_10928_5r5x",
+    "source": "Equation Planting: A Tool for Benchmarking Ising Machines",
+    "authors": [
+        "Itay Hen"
+    ],
+    "problem": "5-Regular 5-XORSAT",
+    "size": 308
+}

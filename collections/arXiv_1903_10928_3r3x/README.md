@@ -6,4 +6,4 @@ Authors: Itay Hen
 
 |  Problem  | 3-Regular 3-XORSAT |
 | :-------: | :----------------: |
-| Instances |       3.202        |
+| Instances |        3202        |
