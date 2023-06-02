@@ -29,6 +29,7 @@ function main(; verbose::Bool = false)
 
         run(`git checkout --orphan $branch`)
         run(`git rm -rf .`)
+        run(`git checkout HEAD -- .gitignore LICENSE`)
         run(`git add .gitignore LICENSE ./dist/*`)
         run(`git push --set-upstream origin $branch`)
 
