@@ -1,4 +1,4 @@
-# arXiv_1903_10928
+# arXiv_1903_10928_3r3x
 
 Source: "_Equation Planting: A Tool for Benchmarking Ising Machines_"
 

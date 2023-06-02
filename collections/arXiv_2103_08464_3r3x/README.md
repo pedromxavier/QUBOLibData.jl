@@ -1,4 +1,4 @@
-# arXiv_2103_08464
+# arXiv_2103_08464_3r3x
 
 Source: "_3-Regular 3-XORSAT Planted Solutions Benchmark of Classical and Quantum Heuristic Optimizers_"
 
