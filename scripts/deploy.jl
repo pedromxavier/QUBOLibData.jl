@@ -23,7 +23,7 @@ function main(; verbose::Bool=false)
     # copy from temporary file and delete it
     distpath = joinpath(DIST_PATH, "dist.tar.gz")
 
-    cp(filepath, distpath)
+    cp("$filepath.gz", distpath)
 
     rm(filepath; force = true)
 
