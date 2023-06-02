@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "QUBO Instance Metadata Schema",
+    "type": "object",
+    "required": [
+        "code",
+        "size",
+        "authors",
+        "problem"
+    ],
+    "properties": {
+        "code": {
+            "type": "string",
+            "minLength": 1
+        },
+        "source": {
+            "type": "string",
+            "minLength": 1
+        },
+        "size": {
+            "type": "integer"
+        },
+        "authors": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "minLength": 1
+            },
+            "minLength": 1
+        },
+        "problem": {
+            "type": "string",
+            "enum": [
+                "3-Regular 3-XORSAT",
+                "5-Regular 5-XORSAT"
+            ]
+        }
+    }
+}
