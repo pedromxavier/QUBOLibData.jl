@@ -2,7 +2,7 @@ using JSON
 using JSONSchema
 
 const ROOT_PATH = dirname(@__DIR__)
-const DIST_PATH = joinpath(DIST_PATH, "dist")
+const DIST_PATH = joinpath(ROOT_PATH, "dist")
 const DATA_PATH = joinpath(ROOT_PATH, "collections")
 
 const METADATA_SCHEMA = JSONSchema.Schema(JSON.parsefile(joinpath(@__DIR__, "metadata.schema.json")))

@@ -4,7 +4,8 @@ using UUIDs
 include("_util.jl")
 
 function main(; verbose::Bool = false)
-    datapath = mkpath(joinpath(ROOT_PATH, "dist"))
+    # Create 'dist' folder if not exists
+    mkpath(DIST_PATH)
 
     for path in listdirs(DATA_PATH)
         filepath = Tar.create(path) |> abspath
@@ -13,7 +14,7 @@ function main(; verbose::Bool = false)
 
         code = basename(path)
 
-        gzippath = joinpath(datapath, "$code.tar.gz")
+        gzippath = joinpath(DIST_PATH, "$code.tar.gz")
 
         cp("$filepath.gz", gzippath)
 
@@ -36,7 +37,7 @@ function main(; verbose::Bool = false)
         run(`git rm -rf .`)
 
         # Assert that 'dist' folder is still there
-        @assert isdir(datapath)
+        @assert isdir(DIST_PATH)
 
         # Bring .gitignore and LICENSE back
         run(`git checkout HEAD -- .gitignore LICENSE`)
