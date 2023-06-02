@@ -3,25 +3,29 @@ using UUIDs
 
 include("_util.jl")
 
-function main(; verbose::Bool = false)
-    # Create 'dist' folder if not exists
-    mkpath(DIST_PATH)
+function main(; verbose::Bool=false)
+    # copy 'LICENSE' and '.gitignore' into 'collections'
+    cp(
+        joinpath(ROOT_PATH, "LICENSE"),
+        joinpath(DATA_PATH, "LICENSE"),
+    )
+    cp(
+        joinpath(ROOT_PATH, ".gitignore"),
+        joinpath(DATA_PATH, ".gitignore"),
+    )
 
-    for path in listdirs(DATA_PATH)
-        filepath = Tar.create(path) |> abspath
+    # build tarball
+    filepath = Tar.create(DATA_PATH) |> abspath
 
-        run(`gzip -9 $filepath`)
+    # compress
+    run(`gzip -9 $filepath`)
+    
+    # copy from temporary file and delete it
+    distpath = joinpath(DIST_PATH, "dist.tar.gz")
 
-        code = basename(path)
+    cp(filepath, distpath)
 
-        gzippath = joinpath(DIST_PATH, "$code.tar.gz")
-
-        cp("$filepath.gz", gzippath)
-
-        rm("$filepath.gz"; force=true)
-
-        @info "Compressed tarball @ $(gzippath)"
-    end
+    rm(filepath; force = true)
 
     cd(ROOT_PATH) do
         # Generate name for temporary branch
