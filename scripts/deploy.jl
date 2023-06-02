@@ -22,7 +22,7 @@ function main(; verbose::Bool = false)
         @info "Compressed tarball @ $(gzippath)"
     end
 
-    branch = uuid4()
+    branch = string(uuid4())
 
     cd(ROOT_PATH) do
         run(`git checkout -B dist`)
