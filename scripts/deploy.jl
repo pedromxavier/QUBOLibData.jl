@@ -31,7 +31,7 @@ function main(; verbose::Bool=false)
 
     mkpath(distpath)
 
-    cp("$filepath.gz", distpath)
+    cp("$filepath.gz", distpath; force=true)
 
     rm(filepath; force = true)
 
