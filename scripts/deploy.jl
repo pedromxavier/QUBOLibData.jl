@@ -25,12 +25,16 @@ function main(; verbose::Bool = false)
     branch = uuid4()
 
     cd(ROOT_PATH) do
+        run(`git checkout -B data`)
+
         run(`git checkout --orphan $branch`)
         run(`git rm -rf .`)
         run(`git add .gitignore LICENSE ./dist/*`)
         run(`git push --set-upstream origin $branch`)
 
         @info "Deployed './dist' folder @ '$branch'"
+
+        run(`git push origin +$branch:data`)
     end
 
     return nothing
