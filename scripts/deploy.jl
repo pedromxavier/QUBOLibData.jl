@@ -39,8 +39,8 @@ function main(; verbose::Bool = false)
         # Assert that 'dist' folder is still there
         @assert isdir(DIST_PATH)
 
-        # Bring .gitignore and LICENSE back
-        run(`git checkout HEAD -- .gitignore LICENSE`)
+        # Bring '.gitignore' and 'LICENSE' back from the 'main' branch
+        run(`git checkout main -- .gitignore LICENSE`)
 
         # Add 'dist' folder and the aforementioned files back
         run(`git add .`)
@@ -54,8 +54,8 @@ function main(; verbose::Bool = false)
         # Overwrite 'dist' branch with contents from temporary branch
         run(`git push origin +$branch:dist`)
 
-        # Move to the 'dist' branch
-        run(`git checkout dist`)
+        # Move to the 'main' branch
+        run(`git checkout main`)
 
         # Delete temporary branch locally ...
         run(`git branch -d $branch`)
