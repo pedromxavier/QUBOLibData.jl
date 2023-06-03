@@ -3,32 +3,38 @@ using JSON
 include("_util.jl")
 
 function main(; verbose=true)
-    jsonpath = joinpath(ROOT_PATH, "latest.json")
+    filepath = joinpath(ROOT_PATH, "latest.txt")
 
-    if isfile(jsonpath)
-        run(`cat $jsonpath`)
+    if isfile(filepath)
+        text = read(filepath, String)
 
-        error("stop!")
+        m = match(r"^tag:\s*v(.*)\s*$", text)[1]
 
-        data = JSON.parsefile(jsonpath)
+        if isnothing(m)
+            error("Tag not found in 'latest.txt'")
+        end
 
-        verbose && @show data
+        latest_tag = parse(VersionNumber, m[1])
 
-        # latest_tag = data["..."]
+        verbose && @show "Latest tag: $latest_tag"
 
         tagpath = joinpath(ROOT_PATH, "tag.txt")
 
-        # new_tag = VersionNumber(
-        #     latest_tag.major,
-        #     latest_tag.minor,
-        #     latest_tag.patch,
-        #     latest_tag.prerelease,
-        #     latest_tag.build,
-        # )
+        new_tag = VersionNumber(
+            latest_tag.major,
+            latest_tag.minor,
+            latest_tag.patch + 1,
+            latest_tag.prerelease,
+            latest_tag.build,
+        )
 
-        # write(tagpath, new_tag)
+        verbose && @show "New tag: $new_tag"
+
+        error("STOP")
+
+        write(tagpath, new_tag)
     else
-        @warn "File 'latest.json' not found"
+        error("File 'latest.txt' not found")
     end
 
     return nothing

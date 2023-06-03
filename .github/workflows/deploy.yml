@@ -15,6 +15,12 @@ jobs:
       with:
         version: '1.9'
 
+    - name: Generate next release tag
+      run: |
+        gh release view > latest.txt
+        julia --proj=scripts scripts/tag.jl --run --verbose
+        echo 'TAG="$(cat tag.txt)"' >> $GITHUB_ENV
+
     - name: Store git tree hash
       run: echo 'GIT_TREE_SHA1="$(git rev-parse main:collections)"' >> $GITHUB_ENV
 
@@ -32,12 +38,6 @@ jobs:
 
     - name: Compute SHA256 for the compressed tarball
       run: echo 'SHA_256="$(sha256sum dist/collections.tar.gz)"' >> $GITHUB_ENV
-
-    - name: Generate release tag
-      run: |
-        gh release view > latest.json
-        julia --proj=scripts scripts/tag.jl --run --verbose
-        echo 'TAG="$(cat tag.txt)"' >> $GITHUB_ENV
 
     - name: Store release title
       run: echo 'TITLE="QUBOInstancesData.jl $TAG"' >> $GITHUB_ENV
