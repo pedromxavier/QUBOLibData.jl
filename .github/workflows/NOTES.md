@@ -4,7 +4,7 @@
 
 ```toml
 [collections]
-git-tree-sha1 = "${GIT_TREE_SHA1}"
+git-tree-sha1 = "${GIT_TREE_HASH}"
 lazy          = true
 
     [[collections.download]]

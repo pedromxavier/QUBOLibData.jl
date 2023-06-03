@@ -16,7 +16,9 @@ jobs:
         version: '1.9'
 
     - name: Store git tree hash
-      run: echo 'GIT_TREE_SHA1="$(git rev-parse main:collections)"' >> $GITHUB_ENV
+      run: |
+        GIT_TREE_HASH="$(git rev-parse main:collections)"
+        echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
 
     - name: Instantiate Julia Environment
       run: julia --proj=scripts -e 'import Pkg; Pkg.instantiate()'
@@ -25,7 +27,8 @@ jobs:
       run: |
         gh release view > latest.txt
         julia --proj=scripts scripts/tag.jl --run --verbose
-        echo 'TAG="$(cat tag.txt)"' >> $GITHUB_ENV
+        TAG="$(cat tag.txt)"
+        echo "TAG=$TAG" >> $GITHUB_ENV
 
     - name: Index instances
       run: julia --proj=scripts scripts/index.jl --run --verbose
@@ -37,10 +40,14 @@ jobs:
       run: julia --proj=scripts scripts/build.jl --run --verbose
 
     - name: Compute SHA256 for the compressed tarball
-      run: echo 'SHA_256="$(sha256sum dist/collections.tar.gz)"' >> $GITHUB_ENV
+      run: |
+        SHA_256="$(sha256sum dist/collections.tar.gz)"
+        echo "SHA_256=$SHA_256" >> $GITHUB_ENV
 
     - name: Store release title
-      run: echo 'TITLE="QUBOInstancesData.jl $TAG"' >> $GITHUB_ENV
+      run: |
+        TITLE="QUBOInstancesData.jl $TAG"
+        echo "TITLE=$TITLE" >> $GITHUB_ENV
 
     - name: Write release notes
       run: |
