@@ -30,9 +30,7 @@ function main(; verbose=true)
 
         verbose && @show "New tag: $new_tag"
 
-        error("STOP")
-
-        write(tagpath, new_tag)
+        write(tagpath, "v$new_tag")
     else
         error("File 'latest.txt' not found")
     end
