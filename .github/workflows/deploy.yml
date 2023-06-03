@@ -15,17 +15,17 @@ jobs:
       with:
         version: '1.9'
 
-    - name: Generate next release tag
-      run: |
-        gh release view > latest.txt
-        julia --proj=scripts scripts/tag.jl --run --verbose
-        echo 'TAG="$(cat tag.txt)"' >> $GITHUB_ENV
-
     - name: Store git tree hash
       run: echo 'GIT_TREE_SHA1="$(git rev-parse main:collections)"' >> $GITHUB_ENV
 
     - name: Instantiate Julia Environment
       run: julia --proj=scripts -e 'import Pkg; Pkg.instantiate()'
+
+    - name: Generate next release tag
+      run: |
+        gh release view > latest.txt
+        julia --proj=scripts scripts/tag.jl --run --verbose
+        echo 'TAG="$(cat tag.txt)"' >> $GITHUB_ENV
 
     - name: Index instances
       run: julia --proj=scripts scripts/index.jl --run --verbose
