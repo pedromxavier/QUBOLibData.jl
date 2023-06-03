@@ -9,6 +9,7 @@ function generate_collection_readme(path)
     # $(metadata["code"])
 
     Source: "_$(haskey(metadata, "source") ? metadata["source"] : "?")_"
+    
     Authors: $(join(metadata["authors"], ", "))
 
     |  Problem  | $(metadata["problem"]) |
