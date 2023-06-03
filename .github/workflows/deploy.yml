@@ -41,7 +41,7 @@ jobs:
 
     - name: Compute SHA256 for the compressed tarball
       run: |
-        SHA_256="$(sha256sum dist/collections.tar.gz)"
+        SHA_256="$(sha256sum -z dist/collections.tar.gz | cut -d " " -f 1)"
         echo "SHA_256=$SHA_256" >> $GITHUB_ENV
 
     - name: Store release title
@@ -50,15 +50,13 @@ jobs:
         echo "TITLE=$TITLE" >> $GITHUB_ENV
 
     - name: Write release notes
-      run: |
-        envsubst < "$GITHUB_WORKSPACE/.github/workflows/NOTES.md" > "$RUNNER_TEMP/NOTES.md"
-        cat "$RUNNER_TEMP/NOTES.md"
+      run: envsubst < "$GITHUB_WORKSPACE/.github/workflows/NOTES.md" > "$RUNNER_TEMP/NOTES.md"
 
-    # - name: Publish release
-    #   run: >
-    #     gh release create $TAG
-    #       --latest
-    #       --notes-file "$RUNNER_TEMP/NOTES.md"
-    #       --title "$TITLE"
-    #       --target $GITHUB_SHA
-    #       dist/collections.tar.gz
+    - name: Publish release
+      run: >
+        gh release create $TAG
+          --latest
+          --notes-file "$RUNNER_TEMP/NOTES.md"
+          --title "$TITLE"
+          --target $GITHUB_SHA
+          dist/collections.tar.gz
