@@ -2,9 +2,12 @@ name: Deployment
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
 
 jobs:
   publish:
+    if: ${{ !(github.event_name == 'push') || contains(github.event.head_commit.message, '[deploy]') }}
     runs-on: ubuntu-latest
     env:
       GH_REPO: ${{ github.repository }}
