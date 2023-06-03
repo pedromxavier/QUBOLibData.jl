@@ -55,8 +55,8 @@ jobs:
     - name: Publish release
       run: >
         gh release create $TAG
-          --latest
-          --notes-file "$RUNNER_TEMP/NOTES.md"
-          --title "$TITLE"
-          --target $GITHUB_SHA
-          dist/collections.tar.gz
+        --latest
+        --notes-file "$RUNNER_TEMP/NOTES.md"
+        --title "$TITLE"
+        --target $GITHUB_SHA
+        dist/collections.tar.gz
