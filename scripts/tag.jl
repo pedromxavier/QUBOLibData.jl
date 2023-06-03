@@ -6,6 +6,10 @@ function main(; verbose=true)
     jsonpath = joinpath(ROOT_PATH, "latest.json")
 
     if isfile(jsonpath)
+        run(`cat $jsonpath`)
+
+        error("stop!")
+
         data = JSON.parsefile(jsonpath)
 
         verbose && @show data
