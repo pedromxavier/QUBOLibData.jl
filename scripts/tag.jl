@@ -8,7 +8,7 @@ function main(; verbose=true)
     if isfile(filepath)
         text = read(filepath, String)
 
-        m = match(r"^tag:\s*v(.*)\s*$", text)[1]
+        m = match(r"tag:\s*v(.*)", text)
 
         if isnothing(m)
             error("Tag not found in 'latest.txt'")
