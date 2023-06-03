@@ -1,0 +1,51 @@
+name: Deployment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      GH_REPO: ${{ github.repository }}
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: julia-actions/setup-julia@v1
+      with:
+        version: '1.9'
+
+    - name: Store git tree hash
+      run: echo "GIT_TREE_SHA1=$(git rev-parse main:collections)" >> $GITHUB_ENV
+
+    - name: Store release title
+      run: echo "TITLE=QUBOInstancesData.jl $TAG" >> $GITHUB_ENV
+
+    - name: Instantiate Julia Environment
+      run: julia --proj=./scripts -e 'import Pkg; Pkg.instantiate()'
+
+    - name: Index instances
+      run: julia --proj=./scripts scripts/index.jl --run --verbose
+
+    - name: Generate docs
+      run: julia --proj=./scripts scripts/docs.jl --run --verbose
+
+    - name: Build compressed tarball
+      run: julia --proj=./scripts scripts/build.jl --run --verbose
+
+    - name: Compute SHA256 for the compressed tarball
+      run: echo "SHA_256=$(sha256sum dist/collections.tar.gz)` >> $GITHUB_ENV
+
+    - name: Generate release tag
+      run: echo "TAG=${{ github.event.inputs.release_tag }}" >> $GITHUB_ENV
+
+    - name: Write release notes
+      run: envsubst < "$GITHUB_WORKSPACE/.github/workflows/RELEASE.md" > "$RUNNER_TEMP/notes.md"
+
+    - name: Publish release
+      run: >
+        gh release create $TAG
+          --prerelease
+          --notes-file "$RUNNER_TEMP/notes.md"
+          --title "$SUBJECT"
+          --target $GITHUB_SHA dist/collections.tar.gz
