@@ -1,4 +1,4 @@
-# ${TAG} Release Notes
+# QUBOInstancesData.jl ${TAG} Release Notes
 
 ## `Artifact.toml`
 
