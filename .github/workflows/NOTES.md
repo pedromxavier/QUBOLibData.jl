@@ -8,6 +8,6 @@ git-tree-sha1 = "${GIT_TREE_HASH}"
 lazy          = true
 
     [[collections.download]]
-    url    = "https://github.com/pedromxavier/QUBOInstanceData/releases/download/${TAG}/collections.tar.gz"
+    url    = "https://github.com/pedromxavier/QUBOInstanceData.jl/releases/download/${TAG}/collections.tar.gz"
     sha256 = "${SHA_256}"
 ```
