@@ -5,7 +5,7 @@
     "required": [
         "code",
         "size",
-        "authors",
+        "format",
         "problem"
     ],
     "properties": {
@@ -13,27 +13,66 @@
             "type": "string",
             "minLength": 1
         },
-        "source": {
-            "type": "string",
-            "minLength": 1
-        },
         "size": {
             "type": "integer"
         },
-        "authors": {
-            "type": "array",
-            "items": {
-                "type": "string",
-                "minLength": 1
-            },
-            "minLength": 1
-        },
-        "problem": {
+        "format": {
             "type": "string",
             "enum": [
-                "3-Regular 3-XORSAT",
-                "5-Regular 5-XORSAT"
+                "qubo",
+                "qubist",
+                "bpqjson",
+                "minizinc",
+                "hfs"
             ]
+        },
+        "problem": {
+            "type": "object",
+            "required": [
+                "type"
+            ],
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "enum": [
+                        "3R3X",
+                        "5R5X"
+                    ]
+                },
+                "sizes": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "source": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "author": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "minLength": 1
+                    },
+                    "year": {
+                        "type": "integer"
+                    },
+                    "citekey": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
         }
     }
 }

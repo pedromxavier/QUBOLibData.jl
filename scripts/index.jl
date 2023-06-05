@@ -1,5 +1,13 @@
 include("_util.jl")
 
+function index_collection(path::AbstractString)
+
+end
+
+function index()
+
+end
+
 function main(; verbose=true)
 
     return nothing

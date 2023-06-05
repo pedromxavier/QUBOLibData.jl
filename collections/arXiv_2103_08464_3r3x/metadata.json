@@ -1,12 +1,64 @@
 {
     "code": "arXiv_2103_08464_3r3x",
-    "source": "3-Regular 3-XORSAT Planted Solutions Benchmark of Classical and Quantum Heuristic Optimizers",
-    "authors": [
-        "Matthew Kowalsky",
-        "Tameem Albash",
-        "Itay Hen",
-        "Daniel A. Lidar"
-    ],
-    "problem": "3-Regular 3-XORSAT",
-    "size": 2301
+    "size": 2301,
+    "format": "qubist",
+    "problem": {
+        "type": "3R3X",
+        "sizes": [
+            16,
+            32,
+            48,
+            64,
+            80,
+            96,
+            112,
+            128,
+            144,
+            160,
+            176,
+            192,
+            208,
+            224,
+            384,
+            400,
+            416,
+            432,
+            448,
+            512,
+            1024,
+            2048,
+            4096
+        ]
+    },
+    "source": [
+        {
+            "type": "online",
+            "citekey": "kowalsky:2022:data",
+            "title": "3R3X instances for '3-Regular 3-XORSAT Planted Solutions Benchmark of Classical and Quantum Heuristic Optimizers'",
+            "author": [
+                "Matthew Kowalsky",
+                "Tameem Albash",
+                "Itay Hen",
+                "Daniel A. Lidar"
+            ],
+            "year": 2022,
+            "url": "https://unmm-my.sharepoint.com/:u:/g/personal/talbash_unm_edu/EZuSjxn4So9BsTBzKazxuA0B6A72AezCeZj2fnks4lqt5Q?e=euft6M",
+            "urldate": "2023-04-06"
+        },
+        {
+            "type": "article",
+            "citekey": "kowalsky:2022",
+            "title": "3-Regular 3-XORSAT Planted Solutions Benchmark of Classical and Quantum Heuristic Optimizers",
+            "author": [
+                "Matthew Kowalsky",
+                "Tameem Albash",
+                "Itay Hen",
+                "Daniel A. Lidar"
+            ],
+            "year": 2022,
+            "doi": "10.1088/2058-9565/ac4d1b",
+            "url": "https://doi.org/10.1088%2F2058-9565%2Fac4d1b",
+            "journal": "Quantum Science and Technology"
+        }
+    ]
 }

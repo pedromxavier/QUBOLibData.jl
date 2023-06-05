@@ -1,9 +1,37 @@
 {
     "code": "arXiv_1903_10928_3r3x",
-    "source": "Equation Planting: A Tool for Benchmarking Ising Machines",
-    "authors": [
-        "Itay Hen"
-    ],
-    "problem": "3-Regular 3-XORSAT",
-    "size": 3202
+    "size": 3202,
+    "format": "qubist",
+    "problem": {
+        "type": "3R3X",
+        "sizes": []
+    },
+    "source": [
+        {
+            "type": "online",
+            "citekey": "hen:2019:data",
+            "title": "3R3X instances for 'Equation Planting: A Tool for Benchmarking Ising Machines'",
+            "author": [
+                "Itay Hen"
+            ],
+            "year": 2019,
+            "url": "https://sites.usc.edu/itayhen/files/2019/09/3r3x.zip",
+            "urldate": "2023-04-06"
+        },
+        {
+            "doi": "0.1103/physrevapplied.12.011003",
+            "url": "https://doi.org/10.1103%2Fphysrevapplied.12.011003",
+            "year": 2019,
+            "citekey": "hen:2019",
+            "month": "jul",
+            "publisher": "American Physical Society ({APS})",
+            "volume": "12",
+            "number": "1",
+            "author": [
+                "Itay Hen"
+            ],
+            "title": "Equation Planting: A Tool for Benchmarking Ising Machines",
+            "journal": "Physical Review Applied"
+        }
+    ]
 }
