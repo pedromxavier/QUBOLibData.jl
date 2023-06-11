@@ -1,11 +1,5 @@
 {
-    "code": "arXiv_1903_10928_5r5x",
-    "size": 308,
-    "format": "qubist",
-    "problem": {
-        "type": "5R5X",
-        "sizes": []
-    },
+    "problem": "5R5X",
     "source": [
         {
             "type": "online",

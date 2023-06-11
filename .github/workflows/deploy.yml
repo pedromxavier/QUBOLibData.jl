@@ -24,7 +24,8 @@ jobs:
         echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
 
     - name: Instantiate Julia Environment
-      run: julia --proj=scripts -e 'import Pkg; Pkg.instantiate()'
+      run: |
+        julia --proj=scripts -e 'import Pkg; Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl"); Pkg.instantiate()'
 
     - name: Generate next release tag
       run: |

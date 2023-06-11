@@ -1,22 +1,9 @@
-include("_util.jl")
-
-function index_collection(path::AbstractString)
-
-end
-
-function index()
-
-end
-
-function main(; verbose=true)
-
-    return nothing
-end
+using QUBOInstaces: _index!
 
 if "--run" ∈ ARGS
     if "--verbose" ∈ ARGS
-        main(; verbose=true)
+        _index!(; verbose=true)
     else
-        main()
+        _index!()
     end
 end
