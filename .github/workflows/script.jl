@@ -1,5 +1,7 @@
 # Install QUBOInstances.jl
-import Pkg; Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl", rev="main")
+import Pkg
+Pkg.activate(; temp=true)
+Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl", rev="main")
 
 using QUBOInstances
 
