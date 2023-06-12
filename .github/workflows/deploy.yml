@@ -18,18 +18,18 @@ jobs:
       with:
         version: '1.9'
 
-    - name: Store git tree hash
-      run: |
-        GIT_TREE_HASH="$(git rev-parse main:collections)"
-        echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
-
     - name: Store latest release info
       run: gh release view > last.txt
 
     - name: Run data curation routines
       run: julia $GITHUB_WORKSPACE/.github/workflows/script.jl
 
-    - name: Generate next release tag
+    - name: Retrieve git tree hash
+      run: |
+        GIT_TREE_HASH="$(cat tree.hash)"
+        echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
+
+    - name: Retrieve next release tag
       run: |
         TAG="$(cat next.tag)"
         echo "TAG=$TAG" >> $GITHUB_ENV
@@ -39,7 +39,7 @@ jobs:
         SHA_256="$(sha256sum -z dist/collections.tar.gz | cut -d " " -f 1)"
         echo "SHA_256=$SHA_256" >> $GITHUB_ENV
 
-    - name: Store release title
+    - name: Write release title
       run: |
         TITLE="QUBOInstancesData.jl $TAG"
         echo "TITLE=$TITLE" >> $GITHUB_ENV
