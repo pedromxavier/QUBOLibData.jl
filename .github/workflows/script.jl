@@ -10,6 +10,7 @@ function main(path; verbose::Bool = false)
 
     QUBOInstances._index!(coll_path; verbose)
     QUBOInstances._document!(coll_path; verbose)
+    QUBOInstances._build!(path; verbose)
     QUBOInstances._tag!(path; verbose)
 
     return nothing
