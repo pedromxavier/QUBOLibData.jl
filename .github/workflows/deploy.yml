@@ -23,25 +23,16 @@ jobs:
         GIT_TREE_HASH="$(git rev-parse main:collections)"
         echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
 
-    - name: Instantiate Julia Environment
-      run: |
-        julia --proj=scripts -e 'import Pkg; Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl"); Pkg.instantiate()'
+    - name: Store latest release info
+      run: gh release view > last.txt
+
+    - name: Run data curation routines
+      run: julia $GITHUB_WORKSPACE/.github/workflows/script.jl
 
     - name: Generate next release tag
       run: |
-        gh release view > latest.txt
-        julia --proj=scripts scripts/tag.jl --run --verbose
-        TAG="$(cat tag.txt)"
+        TAG="$(cat next.tag)"
         echo "TAG=$TAG" >> $GITHUB_ENV
-
-    - name: Index instances
-      run: julia --proj=scripts scripts/index.jl --run --verbose
-
-    - name: Generate docs
-      run: julia --proj=scripts scripts/docs.jl --run --verbose
-
-    - name: Build compressed tarball
-      run: julia --proj=scripts scripts/build.jl --run --verbose
 
     - name: Compute SHA256 for the compressed tarball
       run: |
@@ -64,3 +55,11 @@ jobs:
         --title "$TITLE"
         --target $GITHUB_SHA
         dist/collections.tar.gz
+
+    - name: Update Documentation
+      run: |
+        git config --global user.name  "GitHub Actions"
+        git config --global user.email "pedromxavier@users.noreply.github.com"
+        git add "./*README.md"
+        git commit --allow-empty -m "Update Documentation"
+        git push
