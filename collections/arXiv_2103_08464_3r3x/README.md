@@ -2,13 +2,10 @@
 
 ## Summary
 
-| Problem     | 3-Regular 3-XORSAT |
-|:-----------:|:------------------:|
-| Instances   | 2301               |
-| Size range  | 16 - 4096          |
-| File format | qubist             |
-
-* * *
+| Problem    | 3-Regular 3-XORSAT |
+|:----------:|:------------------:|
+| Instances  | 2300               |
+| Size range | 16 - 4096          |
 
 ## References
 
@@ -29,6 +26,6 @@
   journal = {Quantum Science and Technology}
   doi     = {10.1088/2058-9565/ac4d1b}
   title   = {3-Regular 3-XORSAT Planted Solutions Benchmark of Classical and Quantum Heuristic Optimizers}
-  url     = {https://doi.org/10.1088\%2F2058-9565\%2Fac4d1b}
+  url     = {https://doi.org/10.1088/2058-9565/ac4d1b}
 }
 ```

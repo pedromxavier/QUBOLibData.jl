@@ -2,13 +2,10 @@
 
 ## Summary
 
-| Problem     | 3-Regular 3-XORSAT |
-|:-----------:|:------------------:|
-| Instances   | 3202               |
-| Size range  | ?                  |
-| File format | qubist             |
-
-* * *
+| Problem    | 3-Regular 3-XORSAT |
+|:----------:|:------------------:|
+| Instances  | 3200               |
+| Size range | 16 - 4096          |
 
 ## References
 
@@ -29,7 +26,7 @@
   doi       = {0.1103/physrevapplied.12.011003}
   author    = {Itay Hen}
   year      = {2019}
-  url       = {https://doi.org/10.1103\%2Fphysrevapplied.12.011003}
+  url       = {https://doi.org/10.1103/physrevapplied.12.011003}
   volume    = {12}
   month     = {jul}
   journal   = {Physical Review Applied}
