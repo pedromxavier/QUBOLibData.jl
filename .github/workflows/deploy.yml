@@ -19,24 +19,20 @@ jobs:
         version: '1.9'
 
     - name: Store latest release info
-      run: gh release view > last.txt
+      run: gh release view > "$GITHUB_WORKSPACE/deployment/last.tag"
 
     - name: Run data curation routines
-      run: julia $GITHUB_WORKSPACE/.github/workflows/script.jl
+      run: julia "$GITHUB_WORKSPACE/deployment/script.jl"
 
     - name: Retrieve git tree hash
-      run: |
-        GIT_TREE_HASH="$(cat tree.hash)"
-        echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
+      run: echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
 
     - name: Retrieve next release tag
-      run: |
-        TAG="$(cat next.tag)"
-        echo "TAG=$TAG" >> $GITHUB_ENV
+      run: echo "TAG=$NEXT_RELEASE_TAG" >> $GITHUB_ENV
 
     - name: Compute SHA256 for the compressed tarball
       run: |
-        SHA_256="$(sha256sum -z dist/collections.tar.gz | cut -d " " -f 1)"
+        SHA_256="$(sha256sum -z $GITHUB_WORKSPACE/dist/qubolib.tar.gz | cut -d " " -f 1)"
         echo "SHA_256=$SHA_256" >> $GITHUB_ENV
 
     - name: Write release title
@@ -45,7 +41,7 @@ jobs:
         echo "TITLE=$TITLE" >> $GITHUB_ENV
 
     - name: Write release notes
-      run: envsubst < "$GITHUB_WORKSPACE/.github/workflows/NOTES.md" > "$RUNNER_TEMP/NOTES.md"
+      run: envsubst < "$GITHUB_WORKSPACE/deployment/NOTES.md" > "$RUNNER_TEMP/NOTES.md"
 
     - name: Publish release
       run: >
@@ -54,7 +50,7 @@ jobs:
         --notes-file "$RUNNER_TEMP/NOTES.md"
         --title "$TITLE"
         --target $GITHUB_SHA
-        dist/collections.tar.gz
+        dist/qubolib.tar.gz
 
     - name: Update Documentation
       run: |
