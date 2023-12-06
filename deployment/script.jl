@@ -19,6 +19,9 @@ let index = QUBOInstances.create_index(abspath(@__DIR__, ".."))
     @info "Generating distribution..."
     QUBOInstances.deploy!(index)
 
+    @info "Assigning next release tag..."
+    QUBOInstances.tag!(index)
+
     @info "Updating environment variables..."
     ENV["GIT_TREE_HASH"]    = index.tree_hash[]::String
     ENV["NEXT_QUBOLIB_TAG"] = index.next_tag[]::String
