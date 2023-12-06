@@ -5,11 +5,15 @@ Pkg.activate(; temp=true)
 Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl", rev="main")
 
 using QUBOInstances
-const INDEX = QUBOInstances.InstanceIndex(abspath(@__DIR__, "..", ".."))
 
-QUBOInstances.curate(INDEX)
-QUBOInstances.hash!(INDEX)
-QUBOInstances.deploy(INDEX)
+let index = QUBOInstances.create_index(abspath(@__DIR__, ".."))
+    @info "Root path: $(index.root_path)"
+    @info "Dist path: $(index.dist_path)"
 
-ENV["GIT_TREE_HASH"] = INDEX.tree_hash[]::String
-ENV["NEXT_RELEASE_TAG"] = INDEX.next_tag[]::String
+    QUBOInstances.curate!(index)
+    QUBOInstances.hash!(index)
+    QUBOInstances.deploy!(index)
+
+    ENV["GIT_TREE_HASH"]    = index.tree_hash[]::String
+    ENV["NEXT_QUBOLIB_TAG"] = index.next_tag[]::String
+end
