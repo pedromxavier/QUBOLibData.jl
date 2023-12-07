@@ -1,26 +1,26 @@
 import Pkg
 
-# Install QUBOInstances.jl
+# Install QUBOLib.jl
 Pkg.activate(; temp=true)
-Pkg.add(url="https://github.com/pedromxavier/QUBOInstances.jl", rev="main")
+Pkg.add(url="https://github.com/pedromxavier/QUBOLib.jl", rev="main")
 
-using QUBOInstances
+using QUBOLib
 
-let index = QUBOInstances.create_index(abspath(@__DIR__, ".."))
+let index = QUBOLib.create_index(abspath(@__DIR__, ".."))
     @info "Root path: $(index.root_path)"
     @info "Dist path: $(index.dist_path)"
 
     @info "Curating benchmark data..."
-    QUBOInstances.curate!(index)
+    QUBOLib.curate!(index)
 
     @info "Computing tree hash..."
-    QUBOInstances.hash!(index)
+    QUBOLib.hash!(index)
 
     @info "Generating distribution..."
-    QUBOInstances.deploy!(index)
+    QUBOLib.deploy!(index)
 
     @info "Assigning next release tag..."
-    QUBOInstances.tag!(index)
+    QUBOLib.tag!(index)
 
     @info "Updating environment variables..."
     ENV["GIT_TREE_HASH"]    = index.tree_hash[]::String

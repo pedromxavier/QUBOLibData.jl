@@ -34,7 +34,7 @@ jobs:
 
     - name: Write release title
       run: |
-        TITLE="QUBOInstancesData.jl $TAG"
+        TITLE="QUBOLibData.jl $TAG"
         echo "TITLE=$TITLE" >> $GITHUB_ENV
 
     - name: Write release notes
