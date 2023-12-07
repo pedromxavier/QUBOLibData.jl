@@ -1,13 +1,13 @@
-# QUBOInstancesData.jl
+# QUBOLib.jl
 
 QUBO instances for benchmarking
 
-Provides an artifact for [QUBOInstances.jl](https://github.com/pedromxavier/QUBOInstances.jl).
+Provides an artifact for [QUBOLib.jl](https://github.com/pedromxavier/QUBOLib.jl).
 
 ## Installation
 
 ```julia
-using QUBOInstancesData
+using QUBOLib
 
 artifact"qubolib"
 ```
