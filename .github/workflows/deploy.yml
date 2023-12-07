@@ -18,13 +18,13 @@ jobs:
       with:
         version: '1.9'
 
-    - name: Store latest release info
-      run: LAST_QUBOLIB_TAG="$(gh release view | sed -nr 's/tag:\s*(v\S*)/\1/p')"
-
-    - name: Run main script + Git tree hash + Next release tag
+    - name: Last release tag + Run main script + Git tree hash + Next release tag
       run: |
+        LAST_QUBOLIB_TAG="$(gh release view | sed -nr 's/tag:\s*(v\S*)/\1/p')"
         julia "$GITHUB_WORKSPACE/deployment/script.jl"
+        GIT_TREE_HASH=$(cat $GITHUB_WORKSPACE/deployment/tree.hash)
         echo "GIT_TREE_HASH=$GIT_TREE_HASH" >> $GITHUB_ENV
+        NEXT_QUBOLIB_TAG=$(cat $GITHUB_WORKSPACE/deployment/next.tag)
         echo "TAG=$NEXT_QUBOLIB_TAG" >> $GITHUB_ENV
 
     - name: Compute SHA256 for the compressed tarball
