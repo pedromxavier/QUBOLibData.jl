@@ -26,6 +26,6 @@ let index = QUBOInstances.create_index(abspath(@__DIR__, ".."))
     ENV["GIT_TREE_HASH"]    = index.tree_hash[]::String
     ENV["NEXT_QUBOLIB_TAG"] = index.next_tag[]::String
 
-    @info ENV["GIT_TREE_HASH"]
-    @info ENV["NEXT_QUBOLIB_TAG"]
+    @info "GIT_TREE_HASH = $(ENV["GIT_TREE_HASH"])"
+    @info "NEXT_QUBOLIB_TAG = $(ENV["NEXT_QUBOLIB_TAG"])"
 end
